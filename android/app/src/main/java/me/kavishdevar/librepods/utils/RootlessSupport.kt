@@ -30,7 +30,9 @@ fun isSupported(sharedPreferences: SharedPreferences): Boolean {
 
     val isPixel = Build.MANUFACTURER.lowercase() == "google"
     val isOppoFamily = Build.MANUFACTURER.lowercase() in listOf("oneplus", "oppo", "realme")
-
+    val isLenovoTb710 = Build.MANUFACTURER.equals("lenovo", ignoreCase = true) &&
+            Build.MODEL.uppercase().startsWith("TB710FU")
+    if (isLenovoTb710) return true
     if (isPixel && Build.VERSION.SDK_INT == 36) {
         return Build.ID.startsWith("CP1A")
     } else if (isOppoFamily) {
