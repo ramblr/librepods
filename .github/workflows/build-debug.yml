@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,6 +29,7 @@ jobs:
           sdkmanager "ndk;30.0.14904198"
 
       - name: Build debug APK
+        timeout-minutes: 25
         run: |
           set -o pipefail
           ./gradlew assembleFossDebug --stacktrace 2>&1 | tee "$GITHUB_WORKSPACE/build.log"
@@ -47,6 +50,19 @@ jobs:
           msg="${msg//$'\r'/'%0D'}"
           msg="${msg//$'\n'/'%0A'}"
           echo "::error title=Gradle failure::${msg}"
+
+      - name: Push build log to buildlog branch
+        if: always()
+        run: |
+          mkdir -p /tmp/lg && cd /tmp/lg
+          (tail -n 500 "$GITHUB_WORKSPACE/build.log" 2>/dev/null || echo "no build.log") > build-log.txt
+          git init -q
+          git config user.name ci
+          git config user.email ci@users.noreply.github.com
+          git checkout -q -b buildlog
+          git add build-log.txt
+          git commit -q -m "build log"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" buildlog
 
       - uses: actions/upload-artifact@v4
         with:
