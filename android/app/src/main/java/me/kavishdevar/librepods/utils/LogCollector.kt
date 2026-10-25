@@ -29,6 +29,17 @@ class LogCollector(private val context: Context) {
     private var isCollecting = false
     private var logProcess: Process? = null
 
+    // Rootless mode: when `su` is unavailable, run commands as the app itself.
+    // Non-root logcat only shows this app's own logs, which is enough for AirPodsService.
+    private val hasRoot: Boolean by lazy {
+        try {
+            val p = Runtime.getRuntime().exec(arrayOf("su", "-c", "id"))
+            p.waitFor() == 0
+        } catch (e: Exception) {
+            false
+        }
+    }
+
     suspend fun openXposedSettings(context: Context) {
         withContext(Dispatchers.IO) {
             val command = if (android.os.Build.VERSION.SDK_INT >= 29) {
@@ -78,7 +89,7 @@ class LogCollector(private val context: Context) {
     suspend fun startLogCollection(listener: (String) -> Unit, connectionDetectedCallback: () -> Unit): String {
         return withContext(Dispatchers.IO) {
             isCollecting = true
-            val (btUid, appUid) = getPackageUIDs()
+            val (btUid, appUid) = if (hasRoot) getPackageUIDs() else Pair(null, null)
 
             val uidFilter = buildString {
                 if (!btUid.isNullOrEmpty() && !appUid.isNullOrEmpty()) {
@@ -90,7 +101,9 @@ class LogCollector(private val context: Context) {
                 }
             }
 
-            val command = if (uidFilter.isNotEmpty()) {
+            val command = if (!hasRoot) {
+                "logcat -v threadtime"
+            } else if (uidFilter.isNotEmpty()) {
                 "su -c logcat --uid=$uidFilter -v threadtime"
             } else {
                 "su -c logcat -v threadtime"
@@ -201,7 +214,11 @@ class LogCollector(private val context: Context) {
     private suspend fun executeRootCommand(command: String): String {
         return withContext(Dispatchers.IO) {
             try {
-                val process = Runtime.getRuntime().exec("su -c $command")
+                val process = if (hasRoot) {
+                    Runtime.getRuntime().exec(arrayOf("su", "-c", command))
+                } else {
+                    Runtime.getRuntime().exec(arrayOf("sh", "-c", command))
+                }
                 val reader = BufferedReader(InputStreamReader(process.inputStream))
                 val output = StringBuilder()
                 var line: String?

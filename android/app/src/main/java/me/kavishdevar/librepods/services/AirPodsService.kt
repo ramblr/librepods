@@ -755,6 +755,9 @@ class AirPodsService : Service(), SharedPreferences.OnSharedPreferenceChangeList
 
         bluetoothAdapter.bondedDevices.forEach { device ->
             device.fetchUuidsWithSdp()
+            Log.d(TAG, "Bonded device: name=${device.name}, addr=${device.address}, " +
+                    "hasAacpUuid=${device.uuids?.contains(ParcelUuid.fromString("74ec2172-0bad-4d01-8f77-997b2be0722a"))}, " +
+                    "uuidCount=${device.uuids?.size}")
             if (device.uuids != null) {
                 if (device.uuids.contains(ParcelUuid.fromString("74ec2172-0bad-4d01-8f77-997b2be0722a"))) {
                     bluetoothAdapter.getProfileProxy(
@@ -2397,7 +2400,8 @@ class AirPodsService : Service(), SharedPreferences.OnSharedPreferenceChangeList
             val name = context?.getSharedPreferences("settings", MODE_PRIVATE)
                 ?.getString("name", bluetoothDevice?.name)
             if (bluetoothDevice != null && !action.isNullOrEmpty()) {
-                Log.d(TAG, "Received bluetooth connection broadcast: action=$action")
+                Log.d(TAG, "Received bluetooth connection broadcast: action=$action, device=${bluetoothDevice.name}, " +
+                        "hasAacpUuid=${bluetoothDevice.uuids?.contains(ParcelUuid.fromString("74ec2172-0bad-4d01-8f77-997b2be0722a"))}")
                 val uuid = ParcelUuid.fromString("74ec2172-0bad-4d01-8f77-997b2be0722a")
 
                 if (BluetoothDevice.ACTION_ACL_CONNECTED == action) {
