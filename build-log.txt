@@ -1,0 +1,136 @@
+Downloading https://services.gradle.org/distributions/gradle-9.4.1-bin.zip
+.............10%.............20%.............30%.............40%.............50%.............60%..............70%.............80%.............90%.............100%
+
+Welcome to Gradle 9.4.1!
+
+Here are the highlights of this release:
+ - Java 26 support
+ - Non-class-based JVM tests
+ - Enhanced console progress bar
+
+For more details see https://docs.gradle.org/9.4.1/release-notes.html
+
+Starting a Gradle Daemon (subsequent builds will be faster)
+Calculating task graph as no cached configuration is available for tasks: assembleFossDebug
+> Task :buildSrc:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :buildSrc:generateExternalPluginSpecBuilders
+> Task :buildSrc:extractPrecompiledScriptPluginPlugins
+> Task :buildSrc:generateScriptPluginAdapters
+> Task :buildSrc:pluginDescriptors
+> Task :buildSrc:processResources
+> Task :buildSrc:compilePluginsBlocks
+> Task :buildSrc:generatePrecompiledScriptPluginAccessors
+> Task :buildSrc:compileKotlin
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:classes
+> Task :buildSrc:jar
+Configuration 'fossDebugCompileClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'fossDebugRuntimeClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+> Task :app:preBuild UP-TO-DATE
+> Task :app:generateFossDebugAssets UP-TO-DATE
+> Task :app:preFossDebugBuild UP-TO-DATE
+> Task :app:mergeFossDebugNativeDebugMetadata NO-SOURCE
+> Task :app:generateFossDebugResources
+> Task :app:generateFossDebugBuildConfig
+> Task :app:javaPreCompileFossDebug
+> Task :app:dataBindingMergeDependencyArtifactsFossDebug
+> Task :app:mergeFossDebugAssets
+> Task :app:processFossDebugNavigationResources
+> Task :app:compressFossDebugAssets
+> Task :app:desugarFossDebugFileDependencies
+> Task :app:prepareLibraryDefinitionsFossDebug
+> Task :app:extractFossDebugSupportedLocales
+> Task :app:mapFossDebugSourceSetPaths
+> Task :app:generateFossDebugLocaleConfig
+> Task :app:checkFossDebugAarMetadata
+> Task :app:checkFossDebugDuplicateClasses
+> Task :app:generateFossDebugGlobalSynthetics
+> Task :app:packageFossDebugResources
+> Task :app:parseFossDebugLocalResources
+> Task :app:generateFossDebugRFile
+> Task :app:mergeFossDebugResources
+> Task :app:dataBindingGenBaseClassesFossDebug
+> Task :app:mergeExtDexFossDebug
+> Task :app:mergeLibDexFossDebug
+> Task :app:compileFossDebugNavigationResources
+> Task :app:compileFossDebugKotlin
+> Task :app:createFossDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksFossDebug
+
+> Task :app:configureCMakeDebug[arm64-v8a]
+Checking the license for package CMake 3.22.1 in /usr/local/lib/android/sdk/licenses
+License for package CMake 3.22.1 accepted.
+Preparing "Install CMake 3.22.1 v.3.22.1".
+"Install CMake 3.22.1 v.3.22.1" ready.
+Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
+"Install CMake 3.22.1 v.3.22.1" complete.
+"Install CMake 3.22.1 v.3.22.1" finished.
+
+> Task :app:processFossDebugMainManifest
+> Task :app:processFossDebugManifest
+> Task :app:processFossDebugManifestForPackage
+> Task :app:buildCMakeDebug[arm64-v8a]
+> Task :app:configureCMakeDebug[armeabi-v7a]
+
+> Task :app:buildCMakeDebug[armeabi-v7a]
+C/C++: ninja: Entering directory `/home/runner/work/librepods/librepods/android/app/.cxx/Debug/6m1f19t3/armeabi-v7a'
+C/C++: /home/runner/work/librepods/librepods/android/app/src/main/cpp/l2c_fcr_hook.cpp:187:56: warning: format specifies type 'unsigned long' but the argument has type 'uintptr_t' (aka 'unsigned int') [-Wformat]
+C/C++:   187 |             LOGI("getModuleBase: found base at 0x%lx", base);
+C/C++:       |                                                  ~~~   ^~~~
+C/C++:       |                                                  %x
+C/C++: /home/runner/work/librepods/librepods/android/app/src/main/cpp/l2c_fcr_hook.cpp:37:66: note: expanded from macro 'LOGI'
+C/C++:    37 | #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+C/C++:       |                                                                  ^~~~~~~~~~~
+C/C++: 1 warning generated.
+
+> Task :app:configureCMakeDebug[x86]
+
+> Task :app:buildCMakeDebug[x86]
+C/C++: ninja: Entering directory `/home/runner/work/librepods/librepods/android/app/.cxx/Debug/6m1f19t3/x86'
+C/C++: /home/runner/work/librepods/librepods/android/app/src/main/cpp/l2c_fcr_hook.cpp:187:56: warning: format specifies type 'unsigned long' but the argument has type 'uintptr_t' (aka 'unsigned int') [-Wformat]
+C/C++:   187 |             LOGI("getModuleBase: found base at 0x%lx", base);
+C/C++:       |                                                  ~~~   ^~~~
+C/C++:       |                                                  %x
+C/C++: /home/runner/work/librepods/librepods/android/app/src/main/cpp/l2c_fcr_hook.cpp:37:66: note: expanded from macro 'LOGI'
+C/C++:    37 | #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+C/C++:       |                                                                  ^~~~~~~~~~~
+C/C++: 1 warning generated.
+
+> Task :app:configureCMakeDebug[x86_64]
+> Task :app:processFossDebugResources
+> Task :app:mergeFossDebugJniLibFolders
+> Task :app:buildCMakeDebug[x86_64]
+> Task :app:mergeFossDebugNativeLibs
+> Task :app:stripFossDebugDebugSymbols
+> Task :app:writeFossDebugAppMetadata
+> Task :app:writeFossDebugSigningConfigVersions
+> Task :app:validateSigningFossDebug
+
+> Task :app:compileFossDebugKotlin
+w: file:///home/runner/work/librepods/librepods/android/app/src/main/java/me/kavishdevar/librepods/presentation/components/StyledBottomSheet.kt:39:22 'fun rememberModalBottomSheetState(skipPartiallyExpanded: Boolean = ..., confirmValueChange: (SheetValue) -> Boolean = ...): SheetState' is deprecated. Use rememberBottomSheetState with Hidden initial value.
+w: file:///home/runner/work/librepods/librepods/android/app/src/main/java/me/kavishdevar/librepods/presentation/screens/TroubleshootingScreen.kt:147:22 'fun rememberModalBottomSheetState(skipPartiallyExpanded: Boolean = ..., confirmValueChange: (SheetValue) -> Boolean = ...): SheetState' is deprecated. Use rememberBottomSheetState with Hidden initial value.
+w: file:///home/runner/work/librepods/librepods/android/app/src/main/java/me/kavishdevar/librepods/services/AirPodsService.kt:670:32 'fun <T : Parcelable!> getParcelableExtra(p0: String!): T?' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/librepods/librepods/android/app/src/main/java/me/kavishdevar/librepods/services/AirPodsService.kt:1331:32 'fun <T : Parcelable!> getParcelableExtra(p0: String!): T?' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/librepods/librepods/android/app/src/main/java/me/kavishdevar/librepods/services/AirPodsService.kt:2146:36 'fun acceptRingingCall(): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/librepods/librepods/android/app/src/main/java/me/kavishdevar/librepods/services/AirPodsService.kt:2173:36 'fun endCall(): Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/librepods/librepods/android/app/src/main/java/me/kavishdevar/librepods/services/AirPodsService.kt:2396:24 'fun <T : Parcelable!> getParcelableExtra(p0: String!): T?' is deprecated. Deprecated in Java.
+
+> Task :app:processFossDebugJavaRes
+> Task :app:mergeFossDebugJavaResource
+> Task :app:compileFossDebugJavaWithJavac
+> Task :app:dexBuilderFossDebug
+> Task :app:mergeProjectDexFossDebug
+> Task :app:packageFossDebug
+> Task :app:assembleFossDebug
+> Task :app:createFossDebugApkListingFileRedirect
+
+BUILD SUCCESSFUL in 3m 47s
+60 actionable tasks: 60 executed
+Configuration cache entry stored.
