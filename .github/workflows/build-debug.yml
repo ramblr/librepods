@@ -27,8 +27,26 @@ jobs:
           sdkmanager "ndk;30.0.14904198"
 
       - name: Build debug APK
-        run: ./gradlew assembleFossDebug
+        run: |
+          set -o pipefail
+          ./gradlew assembleFossDebug --stacktrace 2>&1 | tee "$GITHUB_WORKSPACE/build.log"
         working-directory: android
+
+      - name: Report failure details
+        if: failure()
+        run: |
+          {
+            grep -n -A14 "What went wrong" build.log | head -40
+            echo "-----"
+            grep -nE "^e: |error:|Could not|not found|NDK|SDK location" build.log | head -25
+            echo "-----"
+            tail -n 20 build.log
+          } > summary.txt
+          msg=$(cat summary.txt)
+          msg="${msg//'%'/'%25'}"
+          msg="${msg//$'\r'/'%0D'}"
+          msg="${msg//$'\n'/'%0A'}"
+          echo "::error title=Gradle failure::${msg}"
 
       - uses: actions/upload-artifact@v4
         with:
